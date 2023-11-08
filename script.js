@@ -43,7 +43,9 @@
     photo = document.getElementById("photo");
     startbutton = document.getElementById("startbutton");
 
-    (async () => {
+
+
+      (async () => {
           await navigator.mediaDevices
               .getUserMedia({ video: true, audio: false })
               .then((stream) => {
@@ -58,6 +60,21 @@
               .then((devices) => {
                   devices.forEach((device) => {
                       console.log(`${device.kind}: ${device.label} id = ${device.deviceId}`);
+                      if (device.kind == "video") {
+                          var x = document.getElementById("mySelect");
+                          var option = document.createElement("option");
+                          option.text = device.label;
+                          option.value = device.deviceId;
+                          x.add(option);
+                      }
+                  });
+                  document.getElementById("mySelect").addEventListener("change", function () {
+                      navigator.mediaDevices
+                          .getUserMedia({ video: { deviceId: { exact: selector.value } }, audio: false })
+                          .then((stream) => {
+                              video.srcObject = stream;
+                              video.play();
+                          })
                   });
               })
       })();
@@ -131,5 +148,6 @@
 
   // Set up our event listener to run the startup process
   // once loading is complete.
-  window.addEventListener("load", startup, false);
+    window.addEventListener("load", startup, false);
+
 })();
