@@ -70,12 +70,22 @@
                   });
                   var selector = document.getElementById("mySelect");
                   selector.addEventListener("change", function () {
-                      navigator.mediaDevices
-                          .getUserMedia({ video: { deviceId: { exact: selector.value } }, audio: false })
-                          .then((stream) => {
-                              video.srcObject = stream;
-                              video.play();
-                          })
+                      if (selector.value != "") {
+                          navigator.mediaDevices
+                              .getUserMedia({ video: { deviceId: { exact: selector.value } }, audio: false })
+                              .then((stream) => {
+                                  video.srcObject = stream;
+                                  video.play();
+                              })
+                      }
+                      else {
+                          navigator.mediaDevices
+                              .getUserMedia({ video: true , audio: false })
+                              .then((stream) => {
+                                  video.srcObject = stream;
+                                  video.play();
+                              })
+                      }
                   });
               })
       })();
