@@ -60,7 +60,7 @@
               .then((devices) => {
                   devices.forEach((device) => {
                       console.log(`${device.kind}: ${device.label} id = ${device.deviceId}`);
-                      if (device.kind == "video") {
+                      if (device.kind == "videoinput") {
                           var x = document.getElementById("mySelect");
                           var option = document.createElement("option");
                           option.text = device.label;
