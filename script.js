@@ -68,7 +68,8 @@
                           x.add(option);
                       }
                   });
-                  document.getElementById("mySelect").addEventListener("change", function () {
+                  var selector = document.getElementById("mySelect");
+                  selector.addEventListener("change", function () {
                       navigator.mediaDevices
                           .getUserMedia({ video: { deviceId: { exact: selector.value } }, audio: false })
                           .then((stream) => {
