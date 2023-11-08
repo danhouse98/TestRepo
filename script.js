@@ -43,15 +43,24 @@
     photo = document.getElementById("photo");
     startbutton = document.getElementById("startbutton");
 
-    navigator.mediaDevices
-      .getUserMedia({ video: true, audio: false })
-      .then((stream) => {
-        video.srcObject = stream;
-        video.play();
-      })
-      .catch((err) => {
-        console.error(`An error occurred: ${err}`);
-      });
+    (async () => {
+          await navigator.mediaDevices
+              .getUserMedia({ video: true, audio: false })
+              .then((stream) => {
+                  video.srcObject = stream;
+                  video.play();
+              })
+              .catch((err) => {
+                  console.error(`An error occurred: ${err}`);
+              });
+          navigator.mediaDevices
+              .enumerateDevices()
+              .then((devices) => {
+                  devices.forEach((device) => {
+                      console.log(`${device.kind}: ${device.label} id = ${device.deviceId}`);
+                  });
+              })
+      })();
 
     video.addEventListener(
       "canplay",
